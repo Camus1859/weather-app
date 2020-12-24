@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <title>Weather App</title>
+</head>
+<form>
+  <h2>Current Weather</h2>
+  <div id="icon-input">
+    <label for="city-name">  <i class="material-icons">add_location</i></label>
+    <input type="text" id="city-name" name="city-name" placeholder="Enter Zip Code">
+  </div>
+  <button id="degrees-btn">F</button>
+  <h5>Alternate between Fahrenheit and Celcius</h5>
+  <input type="submit" id="submit-button" value="SUBMIT">
+
+</form>
+
+<h1 id="city-title"></h1>
+<h4 id="full-date-time"></h4>
+
+<div id="temp-degree-weatherImg-container">
+  <h2 id="temp"></h2>
+  <h2 id="degree-icon"></h2>
+  <h2 id="degree-letter"></h2>
+  <img id="weather-img">
+</div>
+
+<h2 id="cloud type"></h2>
+
+<div id="feels-humid-wind-sun-container">
+  <h4 id="feels-like">Feels like:
+    <span id="feels-like-num"></span>
+  </h4>
+
+  <h4 id="humidity">Humidity levels:
+    <span id="humidity-num"></span>
+  </h4>
+
+  <h4 id="wind">Wind:
+    <span id="wind-num"></span>
+  </h4>
+
+    <h4>Sunrise:
+      <span id="sunrise-time"></span>
+    </h4>
+
+    <h4>Sunset:
+      <span id="sunset-time"></span>
+    </h4>
+
+</div>
+<body>
+  <script src ='bundle.js'></script>
+  
+</body>
+</html>

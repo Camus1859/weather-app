@@ -843,9 +843,6 @@ var momentTimeZone = __webpack_require__(/*! moment-timezone */ "./node_modules/
 var cityName = document.querySelector('#city-title');
 var fullDateTime = document.querySelector('#full-date-time');
 var currentTemp = document.querySelector('#temp');
-var degreeIconF = document.querySelector('#degree-icon-F');
-var degreeIconC = document.querySelector('#degree-icon-C');
-var smallWeatherIcon = document.querySelector('#weather-img');
 var cloudType = document.querySelector('#cloud-type');
 var feelsLikeNumber = document.querySelector('#feels-like-num');
 var humidityNumber = document.querySelector('#humidity-num');
@@ -886,6 +883,7 @@ var getCityTemp = /*#__PURE__*/function () {
 
           case 8:
             city = _context.sent;
+            console.log(city);
             cityName.textContent = city.name;
             fullDateTime.textContent = momentTimeZone().tz("America/".concat(city.name.replace(' ', '_'))).format('MMMM Do YYYY, h:mma');
             currentTemp.innerHTML = "".concat(Math.round("".concat(city.main.temp)), "&#8457");
@@ -901,20 +899,23 @@ var getCityTemp = /*#__PURE__*/function () {
             sunSet = "".concat(times.sunset).split(' ')[4].replace(/^0+/, '').split(':').slice(0, -1).join(':');
             sunRiseTime.textContent = "".concat(moment("".concat(sunRise), 'HH:mm').format('h:mma'));
             sunSetTime.textContent = "".concat(moment("".concat(sunSet), 'HH:mm').format('h:mma'));
-            _context.next = 29;
+            _context.next = 30;
             break;
 
-          case 26:
-            _context.prev = 26;
+          case 27:
+            _context.prev = 27;
             _context.t0 = _context["catch"](1);
             console.error(_context.t0);
 
-          case 29:
+          case 30:
+            setBackgroundImg();
+
+          case 31:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[1, 26]]);
+    }, _callee, null, [[1, 27]]);
   }));
 
   return function getCityTemp(_x) {
@@ -939,13 +940,42 @@ form.addEventListener('keydown', getCity);
 
 var convertTempToCelcius = function convertTempToCelcius(e) {
   e.preventDefault();
-  currentTemp.innerHTML = "".concat(Math.round("".concat(city.main.temp) - 32 * (5 / 9)), "&#8451");
-  feelsLikeNumber.innerHTML = "".concat(Math.round("".concat(city.main.feels_like) - 32 * (5 / 9)), "&#8451");
+  currentTemp.innerHTML = "".concat(Math.round(("".concat(city.main.temp) - 32) / 1.8), "&#8451");
+  feelsLikeNumber.innerHTML = "".concat(Math.round(("".concat(city.main.feels_like) - 32) / 1.8), "&#8451");
   celciusBtn.classList.add('hidden');
   fahrenheitBtn.classList.remove('hidden');
 };
 
+var convertTempToFahrenheit = function convertTempToFahrenheit(e) {
+  e.preventDefault();
+  currentTemp.innerHTML = "".concat(Math.round("".concat(city.main.temp)), "&#8457");
+  feelsLikeNumber.innerHTML = "".concat(Math.round("".concat(city.main.feels_like)), "&#8457");
+  celciusBtn.classList.remove('hidden');
+  fahrenheitBtn.classList.add('hidden');
+};
+
 celciusBtn.addEventListener('click', convertTempToCelcius);
+fahrenheitBtn.addEventListener('click', convertTempToFahrenheit);
+var img = document.querySelector('html');
+
+var setBackgroundImg = function setBackgroundImg() {
+  var coverage = city.weather[0].description;
+
+  if (!coverage.includes('rain') || !coverage.includes('snow')) {
+    coverage = coverage.replace(' ', '-');
+    img.style.backgroundImage = "url(/src/images/".concat(coverage, ".jpeg)");
+  }
+
+  if (coverage.includes('rain')) {
+    coverage = coverage.replace(' ', '-');
+    img.style.backgroundImage = "url(/src/images/".concat(coverage, ".jpeg)");
+  }
+
+  if (coverage.includes('snow')) {
+    coverage = coverage.replace(' ', '-');
+    img.style.backgroundImage = "url(/src/images/".concat(coverage, ".jpeg)");
+  }
+};
 
 /***/ }),
 
@@ -969,7 +999,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".hidden{\n  display: none;\n}\n\n\n", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;EACE,aAAa;AACf","sourcesContent":[".hidden{\n  display: none;\n}\n\n\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".hidden{\n  display: none;\n}\n\nh1{\n  width: 15%;\n  display: flex;\n  justify-content: center;\n}\n\n\nbutton{\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 0.7rem;\n  width: 1rem;\n  height: 1rem;\n  margin-left: 1rem;\n  font-size: .9rem;\n  border-radius: 50%;\n  outline: none;\n  border: none;\n  cursor: pointer;\n  margin-left: 0%;\n}\n\nform{\n  display: flex;\n  width: 15%;\n  justify-content: space-evenly;\n}\n\n.city-time-container{\n  display: flex;\n  flex-direction: column;\n  width: 15%;\n align-items: center;\n}\n\n#feels-humid-wind-sun-container{\n  display: flex;\n  width: 15%;\n  justify-content: space-evenly;\n\n}\n\nh5{\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n\n#sun{\n  display: flex;\n  width: 15%;\n  justify-content: space-evenly;\n}\n\n.body{\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n\nhtml { \n  background: url() no-repeat  center fixed; \n  -webkit-background-size: cover;\n  -moz-background-size: cover;\n  -o-background-size: cover;\n  background-size: cover;\n}\n\ninput{\n  text-align:center;\n  outline: none;\n  background-color:;\n}", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;EACE,aAAa;AACf;;AAEA;EACE,UAAU;EACV,aAAa;EACb,uBAAuB;AACzB;;;AAGA;EACE,aAAa;EACb,mBAAmB;EACnB,uBAAuB;EACvB,eAAe;EACf,WAAW;EACX,YAAY;EACZ,iBAAiB;EACjB,gBAAgB;EAChB,kBAAkB;EAClB,aAAa;EACb,YAAY;EACZ,eAAe;EACf,eAAe;AACjB;;AAEA;EACE,aAAa;EACb,UAAU;EACV,6BAA6B;AAC/B;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,UAAU;CACX,mBAAmB;AACpB;;AAEA;EACE,aAAa;EACb,UAAU;EACV,6BAA6B;;AAE/B;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,UAAU;EACV,6BAA6B;AAC/B;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,mBAAmB;AACrB;;AAEA;EACE,yCAAyC;EACzC,8BAA8B;EAC9B,2BAA2B;EAC3B,yBAAyB;EACzB,sBAAsB;AACxB;;AAEA;EACE,iBAAiB;EACjB,aAAa;EACb,iBAAiB;AACnB","sourcesContent":[".hidden{\n  display: none;\n}\n\nh1{\n  width: 15%;\n  display: flex;\n  justify-content: center;\n}\n\n\nbutton{\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 0.7rem;\n  width: 1rem;\n  height: 1rem;\n  margin-left: 1rem;\n  font-size: .9rem;\n  border-radius: 50%;\n  outline: none;\n  border: none;\n  cursor: pointer;\n  margin-left: 0%;\n}\n\nform{\n  display: flex;\n  width: 15%;\n  justify-content: space-evenly;\n}\n\n.city-time-container{\n  display: flex;\n  flex-direction: column;\n  width: 15%;\n align-items: center;\n}\n\n#feels-humid-wind-sun-container{\n  display: flex;\n  width: 15%;\n  justify-content: space-evenly;\n\n}\n\nh5{\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n\n#sun{\n  display: flex;\n  width: 15%;\n  justify-content: space-evenly;\n}\n\n.body{\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n\nhtml { \n  background: url() no-repeat  center fixed; \n  -webkit-background-size: cover;\n  -moz-background-size: cover;\n  -o-background-size: cover;\n  background-size: cover;\n}\n\ninput{\n  text-align:center;\n  outline: none;\n  background-color:;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

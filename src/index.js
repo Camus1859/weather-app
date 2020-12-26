@@ -108,15 +108,19 @@ const img = document.querySelector('html');
 
 const setBackgroundImg = () => {
   let coverage = city.weather[0].description;
-  if (!coverage.includes('rain') || !coverage.includes('snow')) {
-    coverage = coverage.replace(' ', '-');
-    img.style.backgroundImage = `url(/src/images/${coverage}.jpeg)`;
-  }
-  if (coverage.includes('rain')) {
-    coverage = coverage.replace(' ', '-');
-    img.style.backgroundImage = `url(/src/images/${coverage}.jpeg)`;
-  }
   if (coverage.includes('snow')) {
+    coverage = coverage.replace('-', '');
+    coverage = coverage.split(' ');
+    let snow = coverage.indexOf('rain');
+    snow = coverage[snow];
+    img.style.backgroundImage = `url(/src/images/${snow}.jpeg)`;
+  } else if (coverage.includes('rain')) {
+    coverage = coverage.replace('-', '');
+    coverage = coverage.split(' ');
+    let rain = coverage.indexOf('rain');
+    rain = coverage[rain];
+    img.style.backgroundImage = `url(/src/images/${rain}.jpeg)`;
+  } else if (!coverage.includes('rain') || !coverage.includes('snow')) {
     coverage = coverage.replace(' ', '-');
     img.style.backgroundImage = `url(/src/images/${coverage}.jpeg)`;
   }

@@ -1,3 +1,5 @@
+import './style.css';
+
 /* eslint-disable no-console */
 const SunCalc = require('suncalc');
 const moment = require('moment');
@@ -8,7 +10,6 @@ const fullDateTime = document.querySelector('#full-date-time');
 const currentTemp = document.querySelector('#temp');
 const degreeIconF = document.querySelector('#degree-icon-F');
 const degreeIconC = document.querySelector('#degree-icon-C');
-
 const smallWeatherIcon = document.querySelector('#weather-img');
 const cloudType = document.querySelector('#cloud-type');
 const feelsLikeNumber = document.querySelector('#feels-like-num');
@@ -17,11 +18,15 @@ const windNumber = document.querySelector('#wind-num');
 const sunRiseTime = document.querySelector('#sunrise-time');
 const sunSetTime = document.querySelector('#sunset-time');
 
+const celciusBtn = document.querySelector('.degrees-btn-C');
+const fahrenheitBtn = document.querySelector('.degrees-btn-F');
+let city;
+
 const getCityTemp = async (zip, country = 'US') => {
   try {
     const url = ` https://api.openweathermap.org/data/2.5/weather?zip=${zip},${country}&units=imperial&appid=97238fe444ebb191d0dead1fb52bfed9
   `;
-    let city = await fetch(url);
+    city = await fetch(url);
     city = await city.json();
     cityName.textContent = city.name;
     fullDateTime.textContent = momentTimeZone()
@@ -71,3 +76,13 @@ const getCity = (e) => {
 };
 
 form.addEventListener('keydown', getCity);
+
+const convertTempToCelcius = (e) => {
+  e.preventDefault();
+  currentTemp.innerHTML = `${Math.round(`${city.main.temp}` - (32) * (5 / 9))}&#8451`; 
+  feelsLikeNumber.innerHTML = `${Math.round(`${city.main.feels_like}` - (32) * (5 / 9))}&#8451`;
+  celciusBtn.classList.add('hidden');
+  fahrenheitBtn.classList.remove('hidden');
+};
+
+celciusBtn.addEventListener('click', convertTempToCelcius);

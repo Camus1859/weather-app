@@ -8,18 +8,18 @@
   <title>Weather App</title>
 </head>
 <form>
-  <h2>Current Weather</h2>
+  <h1>Current Weather</h1>
   <div id="icon-input">
     <label for="city-name">  <i class="material-icons">add_location</i></label>
     <input type="text" id="city-name" name="city-name" placeholder="Enter Zip Code">
   </div>
-  <button id="degrees-btn">F</button>
-  <h5>Alternate between Fahrenheit and Celcius</h5>
-  <input type="submit" id="submit-button" value="SUBMIT">
+  <button class="hidden degrees-btn-F">F</button>
+  <button class="degrees-btn-C">C</button>
 
+  <h5>Alternate between Fahrenheit and Celcius</h5>
 </form>
 
-<h1 id="city-title"></h1>
+<h2 id="city-title"></h2>
 <h4 id="full-date-time"></h4>
 
 <div id="temp-degree-weatherImg-container">
